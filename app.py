@@ -5,6 +5,7 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 
 # setting calc size
+
 Window.size = (500,700)
 
 Builder.load_file('calc.kv')
@@ -14,46 +15,41 @@ class MyLayout(Widget):
 		self.ids.calc_input.text = '0'
 
 	# Making a button
+
 	def button_press(self, button):
 		prior = self.ids.calc_input.text
 		
 		# error handling
+
 		if "Error" in prior:
 			prior = ''
-
 		if prior == "0":
 				self.ids.calc_input.text = ''
 				self.ids.calc_input.text = f'{button}'
 		else: 
 			self.ids.calc_input.text = f'{prior}{button}'
-	
 
 	# backspace func
+
 	def remove(self):
 		prior = self.ids.calc_input.text
-		# Remove The last item in the textbox
 		prior = prior[:-1]
-		# Output back to the textbox
 		self.ids.calc_input.text = prior
 	
 	def pos_neg(self):
 		prior = self.ids.calc_input.text
-		# Test to see if there's a - sign already
 		if "-" in prior:
 			self.ids.calc_input.text = f'{prior.replace("-", "")}'
 		else:
 			self.ids.calc_input.text = f'-{prior}'
 
 	# decimals func
+
 	def dot(self):
 		prior = self.ids.calc_input.text
-		# Split out text box by +
 		num_list = prior.split("+")
-		
 		if "+" in prior and "." not in num_list[-1]:
-			# Add a decimal to the end of the text
 			prior = f'{prior}.'
-			# Output back to the text box
 			self.ids.calc_input.text = prior
 
 		elif "." in prior:
